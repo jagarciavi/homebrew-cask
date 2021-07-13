@@ -1,14 +1,19 @@
-cask 'encryptme' do
-  version '4.2.1'
-  sha256 '3971992f81456f13d35b1781fae84b4776a3a64128c1e4507a79da3c967a2963'
+cask "encryptme" do
+  version "4.3.0,52218"
+  sha256 "5450d69384d6f18fb61166938442301aa6e98eb51d049d9f21958da429b80797"
 
-  url "https://static.encrypt.me/downloads/osx/updates/Release/EncryptMe-#{version}.dmg"
-  appcast 'https://www.getcloak.com/updates/osx/public/'
-  name 'EncryptMe'
-  name 'Cloak'
-  homepage 'https://encrypt.me/'
+  url "https://static.encrypt.me/downloads/osx/updates/Release/EncryptMe-#{version.before_comma}.dmg"
+  name "EncryptMe"
+  name "Cloak"
+  desc "VPN and encryption software"
+  homepage "https://encrypt.me/"
+
+  livecheck do
+    url "https://www.getcloak.com/updates/osx/public/"
+    strategy :sparkle
+  end
 
   auto_updates true
 
-  app 'EncryptMe.app'
+  app "EncryptMe.app"
 end

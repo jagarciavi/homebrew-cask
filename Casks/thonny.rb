@@ -1,23 +1,23 @@
-cask 'thonny' do
-  version '3.2.7'
-  sha256 '0dc9d7b34bbe70cc3256575cfaed055614e8967dd3a26b8ce088998529429042'
+cask "thonny" do
+  version "3.3.10"
+  sha256 "986ea275c92e04e36d7d7bbe752ad355e47de1952d917c8afbfff201c8b328f8"
 
-  # github.com/thonny/thonny/ was verified as official when first introduced to the cask
-  url "https://github.com/thonny/thonny/releases/download/v#{version}/thonny-#{version}.pkg"
-  appcast 'https://github.com/thonny/thonny/releases.atom'
-  name 'Thonny'
-  homepage 'https://thonny.org/'
+  url "https://github.com/thonny/thonny/releases/download/v#{version}/thonny-#{version}.pkg",
+      verified: "github.com/thonny/thonny/"
+  name "Thonny"
+  desc "Python IDE for beginners"
+  homepage "https://thonny.org/"
 
-  conflicts_with cask: 'thonny-xxl'
+  conflicts_with cask: "thonny-xxl"
 
   pkg "thonny-#{version}.pkg"
 
-  uninstall quit:    'org.thonny.Thonny',
-            pkgutil: 'org.thonny.Thonny.component',
-            delete:  '/Applications/Thonny.app'
+  uninstall quit:    "org.thonny.Thonny",
+            pkgutil: "org.thonny.Thonny.component",
+            delete:  "/Applications/Thonny.app"
 
   zap trash: [
-               '~/Library/Saved Application State/org.thonny.Thonny.savedState',
-               '~/Library/Thonny',
-             ]
+    "~/Library/Saved Application State/org.thonny.Thonny.savedState",
+    "~/Library/Thonny",
+  ]
 end

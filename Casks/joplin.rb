@@ -1,19 +1,24 @@
-cask 'joplin' do
-  version '1.0.214'
-  sha256 '1d97ce2d6b61e67d810bbe6099d614578bd2af864f39eb4d63a3e6ecdcfa4db4'
+cask "joplin" do
+  version "2.1.8"
+  sha256 "e75179099de4586c652d0933911949028be78e4143598a274773465eabb6f944"
 
-  # github.com/laurent22/joplin/ was verified as official when first introduced to the cask
-  url "https://github.com/laurent22/joplin/releases/download/v#{version}/Joplin-#{version}.dmg"
-  appcast 'https://github.com/laurent22/joplin/releases.atom'
-  name 'Joplin'
-  homepage 'https://joplin.cozic.net/'
+  url "https://github.com/laurent22/joplin/releases/download/v#{version}/Joplin-#{version}.dmg",
+      verified: "github.com/laurent22/joplin/"
+  name "Joplin"
+  desc "Note taking and to-do application with synchronization capabilities"
+  homepage "https://joplinapp.org/"
 
-  app 'Joplin.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  app "Joplin.app"
 
   zap trash: [
-               '~/Library/Application Support/Joplin',
-               '~/Library/Preferences/net.cozic.joplin-desktop.helper.plist',
-               '~/Library/Preferences/net.cozic.joplin-desktop.plist',
-               '~/Library/Saved Application State/net.cozic.joplin-desktop.savedState',
-             ]
+    "~/Library/Application Support/Joplin",
+    "~/Library/Preferences/net.cozic.joplin-desktop.helper.plist",
+    "~/Library/Preferences/net.cozic.joplin-desktop.plist",
+    "~/Library/Saved Application State/net.cozic.joplin-desktop.savedState",
+  ]
 end

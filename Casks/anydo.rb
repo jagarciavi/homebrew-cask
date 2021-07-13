@@ -1,13 +1,24 @@
-cask 'anydo' do
-  version '4.2.87'
-  sha256 '60a603bccfc421ecdc9c0e0b344ae73f95ad82a2632799716ab52b29b1ea8667'
+cask "anydo" do
+  version "4.2.155"
+  sha256 "0b8cad20dd1735577948869e07e2f9736f76880242f8e57f7fd1fd72021f8af6"
 
-  url 'https://electron-app.any.do/Any.do.dmg'
-  appcast 'https://electron-app.any.do/latest-mac.yml'
-  name 'Any.do'
-  homepage 'https://www.any.do/'
+  url "https://electron-app.any.do/Any.do-#{version}.dmg"
+  name "Any.do"
+  desc "Reminder, planner & calendar"
+  homepage "https://www.any.do/"
 
-  depends_on macos: '>= :high_sierra'
+  livecheck do
+    url "https://electron-app.any.do/latest-mac.yml"
+    strategy :electron_builder
+  end
 
-  app 'Any.do.app'
+  depends_on macos: ">= :catalina"
+
+  app "Any.do.app"
+
+  zap trash: [
+    "~/Library/Application Support/@anydo",
+    "~/Library/Preferences/com.anydo.mac.plist",
+    "~/Library/Saved Application State/com.anydo.mac.savedState",
+  ]
 end

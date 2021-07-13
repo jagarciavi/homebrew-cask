@@ -1,31 +1,37 @@
-cask 'microsoft-edge' do
-  version '81.0.416.77'
-  sha256 'd109dc2bef81a4742dc164a8604af065fa32b37af733f88fad477f47e6a4975d'
+cask "microsoft-edge" do
+  version "91.0.864.67"
+  sha256 "2bb1e36d9c69ef8020031e056942b222bd0b56fc82c361da75e0e4c0c5ac6abd"
 
-  # officecdn-microsoft-com.akamaized.net/ was verified as official when first introduced to the cask
-  url "https://officecdn-microsoft-com.akamaized.net/pr/C1297A47-86C4-4C1F-97FA-950631F94777/MacAutoupdate/MicrosoftEdge-#{version}.pkg"
-  appcast 'https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://go.microsoft.com/fwlink/?linkid=2069148'
-  name 'Microsoft Edge'
-  homepage 'https://www.microsoft.com/edge'
+  url "https://officecdn-microsoft-com.akamaized.net/pr/03ADF619-38C6-4249-95FF-4A01C0FFC962/MacAutoupdate/MicrosoftEdge-#{version}.pkg",
+      verified: "officecdn-microsoft-com.akamaized.net/"
+  name "Microsoft Edge"
+  desc "Web browser"
+  homepage "https://www.microsoft.com/edge"
+
+  livecheck do
+    url "https://go.microsoft.com/fwlink/?linkid=2069148"
+    strategy :header_match
+  end
 
   auto_updates true
+  depends_on cask: "microsoft-auto-update"
 
-  pkg "MicrosoftEdge-#{version}.pkg"
+  pkg "MicrosoftEdge-#{version}.pkg",
+      choices: [
+        {
+          "choiceIdentifier" => "com.microsoft.package.Microsoft_AutoUpdate.app", # Office16_all_autoupdate.pkg
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 0,
+        },
+      ]
 
-  uninstall pkgutil: 'com.microsoft.edgemac',
-            rmdir:   '/Library/Application Support/Microsoft'
+  uninstall pkgutil: "com.microsoft.edgemac"
 
-  zap launchctl: [
-                   'com.microsoft.autoupdate.helper',
-                   'com.microsoft.update.agent',
-                 ],
-      pkgutil:   'com.microsoft.package.Microsoft_AutoUpdate.app',
-      delete:    '/Library/PrivilegedHelperTools/com.microsoft.autoupdate.helper',
-      trash:     [
-                   '/Library/Application Support/Microsoft',
-                   '~/Library/Application Support/Microsoft Edge',
-                   '~/Library/Caches/Microsoft Edge',
-                   '~/Library/Preferences/com.microsoft.edgemac.plist',
-                   '~/Library/Saved Application State/com.microsoft.edgemac.savedState',
-                 ]
+  zap trash: [
+    "~/Library/Application Support/Microsoft Edge",
+    "~/Library/Caches/Microsoft Edge",
+    "~/Library/Preferences/com.microsoft.edgemac.plist",
+    "~/Library/Saved Application State/com.microsoft.edgemac.savedState",
+  ],
+      rmdir: "/Library/Application Support/Microsoft"
 end

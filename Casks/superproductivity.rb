@@ -1,12 +1,12 @@
-cask 'superproductivity' do
-  version '5.1.4'
-  sha256 'bf677582b4acdc6409af081bbee4b53e9afab81a28772675d097e621520fa2b0'
+cask "superproductivity" do
+  version "7.0.1"
+  sha256 "01b9762fd5ea661459def9d36960948a7f2d3ee2e1bd7f8573975d66520798c3"
 
-  # github.com/johannesjo/super-productivity/ was verified as official when first introduced to the cask
-  url "https://github.com/johannesjo/super-productivity/releases/download/v#{version}/superProductivity-#{version}-mac.zip"
-  appcast 'https://github.com/johannesjo/super-productivity/releases.atom'
-  name 'Super Productivity'
-  homepage 'https://super-productivity.com/'
+  url "https://github.com/johannesjo/super-productivity/releases/download/v#{version}/superProductivity-#{version}-mac.zip",
+      verified: "github.com/johannesjo/super-productivity/"
+  name "Super Productivity"
+  desc "To-do list and time tracker"
+  homepage "https://super-productivity.com/"
 
-  app 'superProductivity.app'
+  app "superProductivity.app"
 end

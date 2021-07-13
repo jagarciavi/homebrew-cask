@@ -1,13 +1,17 @@
-cask 'brook' do
-  version '20200502'
-  sha256 '264a726cc575bb56f07b4245f19e63baeef0e6786825fef3ccd103958d2ffdd7'
+cask "brook" do
+  version "20210701"
+  sha256 "6c7f203eb546bea467f99a66b555fd8181749b4b572c137cd4272030cf19e34b"
 
-  url "https://github.com/txthinking/brook/releases/download/v#{version}/Brook.pkg"
-  appcast 'https://github.com/txthinking/brook/releases.atom'
-  name 'Brook'
-  homepage 'https://github.com/txthinking/brook'
+  url "https://github.com/txthinking/brook/releases/download/v#{version}/Brook.dmg"
+  name "Brook"
+  desc "Proxy/VPN client"
+  homepage "https://github.com/txthinking/brook"
 
-  pkg 'Brook.pkg'
+  livecheck do
+    url :url
+    strategy :github_latest
+    regex(%r{href=.*?/v?(\d+)/Brook\.dmg}i)
+  end
 
-  uninstall pkgutil: 'com.txthinking.base.pkg'
+  app "Brook.app"
 end

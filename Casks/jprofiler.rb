@@ -1,11 +1,17 @@
-cask 'jprofiler' do
-  version '11.1.2'
-  sha256 '6428b607ad163d9922f2c613dcecc8e48b23693eaed4db1da77ea58a15449e07'
+cask "jprofiler" do
+  version "12.0.3"
+  sha256 "388ec46461302fae0d1cacf4cf5374d07954fd4310b1caf7c5e7da27a99c81e0"
 
   url "https://download-gcdn.ej-technologies.com/jprofiler/jprofiler_macos_#{version.dots_to_underscores}.dmg"
-  appcast 'https://www.ej-technologies.com/feeds/jprofiler/'
-  name 'JProfiler'
-  homepage 'https://www.ej-technologies.com/products/jprofiler/overview.html'
+  name "JProfiler"
+  desc "Java profiler"
+  homepage "https://www.ej-technologies.com/products/jprofiler/overview.html"
 
-  app 'JProfiler.app'
+  livecheck do
+    url "https://www.ej-technologies.com/feeds/jprofiler/"
+    strategy :page_match
+    regex(/JProfiler\s*Release\s*(\d+(?:\.\d+)*)/i)
+  end
+
+  app "JProfiler.app"
 end

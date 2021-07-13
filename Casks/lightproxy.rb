@@ -1,23 +1,23 @@
-cask 'lightproxy' do
-  version '1.1.20'
-  sha256 '4b69141f296a10858b20b3be2de21a4c5c67421ac575e4175d8d16daea89e3d7'
+cask "lightproxy" do
+  version "1.1.41"
+  sha256 "e71f606717712eabb06e1cf0c643302f8d52d339d227367a16ca519883d4bd00"
 
-  # github.com/alibaba/lightproxy/ was verified as official when first introduced to the cask
-  url "https://github.com/alibaba/lightproxy/releases/download/v#{version}/LightProxy-#{version}.dmg"
-  appcast 'https://github.com/alibaba/lightproxy/releases.atom'
-  name 'LightProxy'
-  homepage 'https://alibaba.github.io/lightproxy/'
+  url "https://github.com/alibaba/lightproxy/releases/download/v#{version}/LightProxy-#{version}.dmg",
+      verified: "github.com/alibaba/lightproxy/"
+  name "LightProxy"
+  desc "Proxy & Debug tools based on whistle with Chrome Devtools UI"
+  homepage "https://alibaba.github.io/lightproxy/"
 
-  app 'LightProxy.app'
+  app "LightProxy.app"
 
   uninstall_postflight do
-    stdout, * = system_command '/usr/bin/security',
-                               args: ['find-certificate', '-a', '-c', 'LigthProxy', '-Z'],
+    stdout, * = system_command "/usr/bin/security",
+                               args: ["find-certificate", "-a", "-c", "LigthProxy", "-Z"],
                                sudo: true
-    hashes = stdout.lines.grep(%r{^SHA-256 hash:}) { |l| l.split(':').second.strip }
+    hashes = stdout.lines.grep(/^SHA-256 hash:/) { |l| l.split(":").second.strip }
     hashes.each do |h|
-      system_command '/usr/bin/security',
-                     args: ['delete-certificate', '-Z', h],
+      system_command "/usr/bin/security",
+                     args: ["delete-certificate", "-Z", h],
                      sudo: true
     end
   end

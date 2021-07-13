@@ -1,11 +1,20 @@
-cask 'melodics' do
-  version '2.1.4423'
-  sha256 'a1d334f563f729ef41d00b407537b0f3329e54a9e1a8f777d0c462d2856d2bba'
+cask "melodics" do
+  version "2.1.6237,1E50E5AE-7A7C-465D-BDFB-5C2A686690AE"
+  sha256 "a2f8a2667a34f74e25f905a74b50218a05e6f65268389fd45aba055236f179b5"
 
-  url "https://web-cdn.melodics.com/download/MelodicsV#{version.major}.dmg"
-  appcast "https://web-cdn.melodics.com/download/osxupdatescastv#{version.major}.xml"
-  name 'Melodics'
-  homepage 'https://melodics.com/'
+  url "https://web-cdn.melodics.com/download/#{version.after_comma}.zip"
+  name "Melodics"
+  desc "Helps you learn to play your instrument"
+  homepage "https://melodics.com/"
 
-  app 'Melodics.app'
+  livecheck do
+    url "https://web-cdn.melodics.com/download/osxupdatescastv#{version.major}.xml"
+    strategy :sparkle do |item|
+      "#{item.version},#{item.url[%r{/(\h+(?:-\h+)+)\.zip}i, 1]}"
+    end
+  end
+
+  depends_on macos: ">= :high_sierra"
+
+  app "Melodics.app"
 end

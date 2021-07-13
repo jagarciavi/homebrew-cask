@@ -1,11 +1,16 @@
-cask 'datweatherdoe' do
-  version '1.3.0'
-  sha256 'a076722eaa3bf55a0a08811e326e5e1160a57dc3d9ef5b6f0760e8f146b1b274'
+cask "datweatherdoe" do
+  version "2.1.1"
+  sha256 "ad361b0e0014b104720002628aa5aeed62535256f6e86e25ffce445b9e0a5bbb"
 
   url "https://github.com/inderdhir/DatWeatherDoe/releases/download/#{version}/DatWeatherDoe-#{version}.dmg"
-  appcast 'https://github.com/inderdhir/DatWeatherDoe/releases.atom'
-  name 'DatWeatherDoe'
-  homepage 'https://github.com/inderdhir/DatWeatherDoe'
+  name "DatWeatherDoe"
+  desc "Menu bar weather app"
+  homepage "https://github.com/inderdhir/DatWeatherDoe"
 
-  app 'DatWeatherDoe.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  app "DatWeatherDoe.app"
 end

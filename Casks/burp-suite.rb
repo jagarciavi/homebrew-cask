@@ -1,24 +1,31 @@
-cask 'burp-suite' do
-  version '2020.4.1'
-  sha256 'dc5e2c9d8e663246c90f63a1ab9fa72b705c99f2f54885dfdc0b4084c85c2fa7'
+cask "burp-suite" do
+  version "2021.6.2"
+  sha256 "cdbb96c5ee1168e749f8780a59b1b72b342d911cad4230c4180ea5353a71eebe"
 
   url "https://portswigger.net/burp/releases/download?product=community&version=#{version}&type=MacOsx"
-  appcast 'https://portswigger.net/burp/releases?initialTab=community'
-  name 'Burp Suite'
-  homepage 'https://portswigger.net/burp/'
+  name "Burp Suite Community Edition"
+  desc "Web security testing toolkit"
+  homepage "https://portswigger.net/burp/"
 
-  installer script: {
-                      executable: 'Burp Suite Community Edition Installer.app/Contents/MacOS/JavaApplicationStub',
-                      args:       ['-q'],
-                      sudo:       true,
-                    }
-
-  postflight do
-    set_ownership '/Applications/Burp Suite Community Edition.app'
-    set_permissions '/Applications/Burp Suite Community Edition.app', 'a+rX'
+  livecheck do
+    url "https://portswigger.net/burp/releases/community/latest"
+    strategy :header_match do |headers|
+      headers["location"][%r{/professional[._-]community[._-]v?(\d+(?:-\d+)+)\?}i, 1].tr("-", ".")
+    end
   end
 
-  uninstall delete: '/Applications/Burp Suite Community Edition.app'
+  installer script: {
+    executable: "Burp Suite Community Edition Installer.app/Contents/MacOS/JavaApplicationStub",
+    args:       ["-q"],
+    sudo:       true,
+  }
 
-  zap trash: '~/.BurpSuite'
+  postflight do
+    set_ownership "/Applications/Burp Suite Community Edition.app"
+    set_permissions "/Applications/Burp Suite Community Edition.app", "a+rX"
+  end
+
+  uninstall delete: "/Applications/Burp Suite Community Edition.app"
+
+  zap trash: "~/.BurpSuite"
 end

@@ -1,30 +1,35 @@
-cask 'inkscape' do
-  version '1.0.0'
-  sha256 '9b42468815b4bcbc8ccb76a239aea48a2965dbd2f3ae7c3b560c7f2a7e48a955'
+cask "inkscape" do
+  version "1.1"
+  sha256 "5f3308c00119ee9bc3732c7e9cbde208357b57e6d58f1edc08da9e10330c2d9d"
 
-  url "https://media.inkscape.org/dl/resources/file/Inkscape-#{version}.dmg"
-  appcast 'https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://inkscape.org/release',
-          configuration: version.major_minor
-  name 'Inkscape'
-  homepage 'https://inkscape.org/'
+  url "https://media.inkscape.org/dl/resources/file/Inkscape-#{version}.0.dmg"
+  name "Inkscape"
+  desc "Vector graphics editor"
+  homepage "https://inkscape.org/"
 
-  app 'Inkscape.app'
+  livecheck do
+    url "https://inkscape.org/release"
+    strategy :header_match
+  end
+
+  app "Inkscape.app"
   # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
   shimscript = "#{staged_path}/inkscape.wrapper.sh"
-  binary shimscript, target: 'inkscape'
+  binary shimscript, target: "inkscape"
 
   preflight do
     IO.write shimscript, <<~EOS
       #!/bin/sh
-      exec '#{staged_path}/Inkscape.app/Contents/MacOS/Inkscape' "$@"
+      exec '#{staged_path}/Inkscape.app/Contents/MacOS/inkscape' "$@"
     EOS
   end
 
   zap trash: [
-               '~/.config/inkscape',
-               '~/Library/Application Support/Inkscape',
-               '~/Library/Application Support/org.inkscape.Inkscape',
-               '~/Library/Preferences/org.inkscape.Inkscape.plist',
-               '~/Library/Saved Application State/org.inkscape.Inkscape.savedState',
-             ]
+    "~/.config/inkscape",
+    "~/Library/Application Support/Inkscape",
+    "~/Library/Application Support/org.inkscape.Inkscape",
+    "~/Library/Caches/org.inkscape.Inkscape*",
+    "~/Library/Preferences/org.inkscape.Inkscape.plist",
+    "~/Library/Saved Application State/org.inkscape.Inkscape.savedState",
+  ]
 end

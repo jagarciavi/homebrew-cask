@@ -1,16 +1,20 @@
-cask 'xamarin-mac' do
-  version '6.18.1.31'
-  sha256 'f7e2e9284f85de994908d3209e5e308d689a5c2d5b15c5a4bba4753688b04b69'
+cask "xamarin-mac" do
+  version "7.14.0.24"
+  sha256 "77e532874eb85b0cba260d8f77c55b149c78d9f6d1f8758ac5fe6f427bd18fe0"
 
   url "https://dl.xamarin.com/XamarinforMac/Mac/xamarin.mac-#{version}.pkg"
-  appcast 'https://docs.microsoft.com/en-us/xamarin/mac/release-notes/',
-          configuration: version.major_minor
-  name 'Xamarin Mac'
-  homepage 'https://www.xamarin.com/platform'
+  name "Xamarin Mac"
+  desc "Gives C# and .NET developers access to Objective-C and Swift API's"
+  homepage "https://www.xamarin.com/platform"
 
-  depends_on cask: 'homebrew/cask-versions/mono-mdk-for-visual-studio'
+  livecheck do
+    url "https://software.xamarin.com/Service/Updates?v=2&pv0ab364ff-c0e9-43a8-8747-3afb02dc7731=0"
+    regex(%r{/xamarin\.mac[._-]v?(\d+(?:\.\d+)+)\.pkg}i)
+  end
+
+  depends_on cask: "homebrew/cask-versions/mono-mdk-for-visual-studio"
 
   pkg "xamarin.mac-#{version}.pkg"
 
-  uninstall pkgutil: 'com.xamarin.mac-.*'
+  uninstall pkgutil: "com.xamarin.mac-.*"
 end

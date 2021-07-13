@@ -1,16 +1,20 @@
-cask 'feed-the-beast' do
-  version '1.0.8'
-  sha256 'b03fe156f41b202b72c6ad554ecdfa7c77f503abf665a12e6acdeaabaef3f88d'
+cask "feed-the-beast" do
+  version "202105051818-5b1f30277f"
+  sha256 "6674177e2bd8cb608c5574b3077744762cd49dec89186c073e217dedc78fb275"
 
-  # apps.modpacks.ch/FTBApp was verified as official when first introduced to the cask
-  url "https://apps.modpacks.ch/FTBApp/release/#{version}/FTBA_macos_#{version.dots_to_underscores}.dmg"
-  appcast 'https://www.feed-the-beast.com/app_release.xml'
-  name 'Feed the Beast'
-  homepage 'https://www.feed-the-beast.com/'
+  url "https://apps.modpacks.ch/FTBApp/release/#{version}-release/FTBA_macos_#{version}-release.dmg",
+      verified: "apps.modpacks.ch/FTBApp/"
+  name "Feed the Beast"
+  homepage "https://www.feed-the-beast.com/"
 
-  app 'FTBApp.app'
+  livecheck do
+    url "https://www.feed-the-beast.com/app_release.xml"
+    regex(/FTBA_macos_(\d+-[a-f0-9]+)-release\.dmg/i)
+  end
 
-  zap trash: '~/Library/Application Support/ftblauncher'
+  app "FTBApp.app"
+
+  zap trash: "~/Library/Application Support/ftblauncher"
 
   caveats do
     depends_on_java

@@ -1,14 +1,19 @@
-cask 'gingko' do
-  version '2.4.10'
-  sha256 'a8a519136889be3b28f87db723cc2f0db8d3d3ff25e7b3c5ab86d608e0dc8d84'
+cask "gingko" do
+  version "2.4.15"
+  sha256 "bb1367b0a07a80872be253eda0519ec801e0b96b04d59c5bff3f825cf9e380c4"
 
-  # github.com/gingko/client/ was verified as official when first introduced to the cask
-  url "https://github.com/gingko/client/releases/download/v#{version}/Gingko-#{version}-mac.zip"
-  appcast 'https://github.com/gingko/client/releases.atom'
-  name 'Gingko'
-  homepage 'https://gingko.io/'
+  url "https://github.com/gingko/client/releases/download/v#{version}/Gingko-#{version}-mac.zip",
+      verified: "github.com/gingko/client/"
+  name "Gingko"
+  desc "Word processor that shows structure and content"
+  homepage "https://gingko.io/"
 
-  app 'Gingko.app'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
-  zap trash: '~/Library/Application Support/Gingko'
+  app "Gingko.app"
+
+  zap trash: "~/Library/Application Support/Gingko"
 end

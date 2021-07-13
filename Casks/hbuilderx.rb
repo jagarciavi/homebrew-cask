@@ -1,12 +1,19 @@
-cask 'hbuilderx' do
-  version '2.7.5.20200519'
-  sha256 'b4cf270937e14f8d4a9aca5b3326e0405eceef70f7fee6b79156e8c7757e85d1'
+cask "hbuilderx" do
+  version "3.1.22.20210709"
+  sha256 "4db66a6f9e389c8cc3da6ebb66d0d8e1833619a317e6d8d8617e2f304ca6ba55"
 
-  # download1.dcloud.net.cn/ was verified as official when first introduced to the cask
-  url "https://download1.dcloud.net.cn/download/HBuilderX.#{version}.dmg"
-  appcast 'https://dcloud.io/docs/HBuilder.json'
-  name 'HBuilderX'
-  homepage 'https://www.dcloud.io/hbuilderx.html'
+  url "https://download1.dcloud.net.cn/download/HBuilderX.#{version}.dmg",
+      verified: "download1.dcloud.net.cn/"
+  name "HBuilderX"
+  desc "HTML editor"
+  homepage "https://www.dcloud.io/hbuilderx.html"
 
-  app 'HBuilderX.app'
+  livecheck do
+    url "https://download1.dcloud.net.cn/hbuilderx/release.json"
+    strategy :page_match do |page|
+      JSON.parse(page)["version"]
+    end
+  end
+
+  app "HBuilderX.app"
 end

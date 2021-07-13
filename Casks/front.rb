@@ -1,11 +1,16 @@
-cask 'front' do
-  version '3.21.7'
-  sha256 '9089e1faf406e94bc7da27579b994d12681e9ed2ffd937c631282c7f22d72917'
+cask "front" do
+  version "3.27.3"
+  sha256 "3b951e7682b257c1021497385ab07910058bb25b3823853fa30125d752d0d6a5"
 
   url "https://dl.frontapp.com/desktop/builds/#{version}/Front-#{version}.zip"
-  appcast 'https://dl.frontapp.com/desktop/updates/latest/mac/latest-mac.yml'
-  name 'Front'
-  homepage 'https://frontapp.com/'
+  name "Front"
+  desc "Customer communication platform"
+  homepage "https://frontapp.com/"
 
-  app 'Front.app'
+  livecheck do
+    url "https://dl.frontapp.com/desktop/updates/latest/mac/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  app "Front.app"
 end

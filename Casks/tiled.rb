@@ -1,14 +1,24 @@
-cask 'tiled' do
-  version '1.3.4'
-  sha256 '23e97468fbacac9521508f5370076e00ec40d2562da9c24da3181f71c1fc960b'
+cask "tiled" do
+  version "1.7.0"
+  sha256 "09b778e120b2808100faa20ff1b123c06fe2019149c17b8b795eaefbd7d31ce8"
 
-  # github.com/bjorn/tiled/ was verified as official when first introduced to the cask
-  url "https://github.com/bjorn/tiled/releases/download/v#{version}/Tiled-#{version}-macos.zip"
-  appcast 'https://github.com/bjorn/tiled/releases.atom'
-  name 'Tiled'
-  homepage 'https://www.mapeditor.org/'
+  url "https://github.com/bjorn/tiled/releases/download/v#{version}/Tiled-#{version}-macos.zip",
+      verified: "github.com/bjorn/tiled/"
+  name "Tiled"
+  desc "Flexible level editor"
+  homepage "https://www.mapeditor.org/"
 
-  depends_on macos: '>= :sierra'
+  depends_on macos: ">= :sierra"
 
-  app 'Tiled.app'
+  app "Tiled.app"
+  # shim script (https://github.com/Homebrew/homebrew-cask/issues/18809)
+  shimscript = "#{staged_path}/tiled.wrapper.sh"
+  binary shimscript, target: "tiled"
+
+  preflight do
+    IO.write shimscript, <<~EOS
+      #!/bin/bash
+      exec '#{appdir}/Tiled.app/Contents/MacOS/Tiled' "$@"
+    EOS
+  end
 end

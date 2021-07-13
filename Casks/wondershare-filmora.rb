@@ -1,10 +1,15 @@
-cask 'wondershare-filmora' do
-  version '9.4.8.1'
-  sha256 'd28f314ea60d2fbc913271cb1e9b75203e0bb5416c4fedafbf46173df1db9304'
+cask "wondershare-filmora" do
+  version "10.1.5.23"
+  sha256 :no_check
 
-  url "http://download.wondershare.com/filmora#{version.major}-mac_full718.dmg"
-  name 'Wondershare Filmora9'
-  homepage 'https://filmora.wondershare.com/video-editor/'
+  url "https://download.wondershare.com/filmora-mac_full718.dmg"
+  appcast "https://cbs.wondershare.com/go.php?m=upgrade_info&pid=718&version=#{version}",
+          must_contain: version.major_minor_patch
+  name "Wondershare Filmora"
+  desc "Video editor"
+  homepage "https://filmora.wondershare.com/video-editor-mac/"
 
-  app "Wondershare Filmora#{version.major}.app"
+  depends_on macos: ">= :sierra"
+
+  app "Wondershare Filmora.app"
 end

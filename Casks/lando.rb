@@ -1,28 +1,33 @@
-cask 'lando' do
-  version '3.0.3'
-  sha256 'a89a3919b6d95cdf15d92dd12234936477593e18f748ad1aeb4217fd6e6624a5'
+cask "lando" do
+  version "3.1.4"
+  sha256 "3369cf238c956bd12f421c56f110181cc981edeacd1743e1600feb9e991bdf45"
 
-  # github.com/lando/lando/ was verified as official when first introduced to the cask
-  url "https://github.com/lando/lando/releases/download/v#{version}/lando-v#{version}.dmg"
-  appcast 'https://github.com/lando/lando/releases.atom'
-  name 'Lando'
-  homepage 'https://docs.lando.dev/'
+  url "https://github.com/lando/lando/releases/download/v#{version}/lando-v#{version}.dmg",
+      verified: "github.com/lando/lando/"
+  name "Lando"
+  desc "Local development environment and DevOps tool built on Docker"
+  homepage "https://lando.dev/"
 
-  depends_on cask: 'docker'
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
-  pkg 'LandoInstaller.pkg',
+  depends_on cask: "docker"
+
+  pkg "LandoInstaller.pkg",
       choices: [
-                 {
-                   'choiceIdentifier' => 'choiceDocker',
-                   'choiceAttribute'  => 'selected',
-                   'attributeSetting' => 0,
-                 },
-                 {
-                   'choiceIdentifier' => 'choiceLando',
-                   'choiceAttribute'  => 'selected',
-                   'attributeSetting' => 1,
-                 },
-               ]
+        {
+          "choiceIdentifier" => "choiceDocker",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 0,
+        },
+        {
+          "choiceIdentifier" => "choiceLando",
+          "choiceAttribute"  => "selected",
+          "attributeSetting" => 1,
+        },
+      ]
 
-  uninstall pkgutil: 'io.lando.pkg.lando'
+  uninstall pkgutil: "io.lando.pkg.lando"
 end

@@ -1,11 +1,16 @@
-cask 'camunda-modeler' do
-  version '3.7.3'
-  sha256 'c0f6648e71d052a35aa95dca8acdc77efa75297c2f02739a2492c62f3e390c7c'
+cask "camunda-modeler" do
+  version "4.8.1"
+  sha256 "06cafaa62dd445abdc4c0764fe25ad25eb36cb185e114a1cdbdeef6849dab2ad"
 
   url "https://camunda.org/release/camunda-modeler/#{version}/camunda-modeler-#{version}-mac.zip"
-  appcast 'https://camunda.com/download/modeler/'
-  name 'Camunda Modeler'
-  homepage 'https://camunda.org/'
+  name "Camunda Modeler"
+  desc "Workflow and Decision Automation Platform"
+  homepage "https://camunda.org/"
 
-  app 'Camunda Modeler.app'
+  livecheck do
+    url "https://camunda.com/download/modeler/"
+    regex(%r{href=.*?/camunda[._-]?modeler[._-]?v?(\d+(?:\.\d+)+)[._-]?mac\.zip}i)
+  end
+
+  app "Camunda Modeler.app"
 end

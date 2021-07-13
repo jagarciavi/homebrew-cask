@@ -1,11 +1,24 @@
-cask 'mattermost' do
-  version '4.4.2'
-  sha256 '90b70d659b39097fc49bb67fc323ec95b18c62229a6978c4b4f9a2328b6c8e84'
+cask "mattermost" do
+  version "4.7.0"
+  sha256 "d176db0d7749ecde60b94188f377ea53e9d8725f429c2badebbb8519d7ba3c9c"
 
   url "https://releases.mattermost.com/desktop/#{version}/mattermost-desktop-#{version}-mac.zip"
-  appcast 'https://github.com/mattermost/desktop/releases.atom'
-  name 'Mattermost'
-  homepage 'https://about.mattermost.com/'
+  name "Mattermost"
+  desc "Open-source, self-hosted Slack-alternative"
+  homepage "https://about.mattermost.com/"
 
-  app 'Mattermost.app'
+  livecheck do
+    url "https://docs.mattermost.com/install/desktop.html#macos-10-9"
+    strategy :page_match
+    regex(%r{href=.*?/mattermost-desktop-(\d+(?:\.\d+)*)-mac\.dmg}i)
+  end
+
+  app "Mattermost.app"
+
+  zap trash: [
+    "~/Library/Application Support/Mattermost",
+    "~/Library/Logs/Mattermost",
+    "~/Library/Preferences/Mattermost.Desktop.plist",
+    "~/Library/Saved Application State/Mattermost.Desktop.savedState",
+  ]
 end

@@ -1,27 +1,34 @@
-cask 'tableau-prep' do
-  version '2020.2.1'
-  sha256 '029e0a8983bf7a67bfe9d51fcdf9b2aa1d7c874bf85f7625100800f67a503a57'
+cask "tableau-prep" do
+  version "2021.2.1"
+  sha256 "a4be1ec85086160c35c02c32138937294b020df0cfc883a8878ede0ee4b890b7"
 
   url "https://downloads.tableau.com/esdalt/tableau_prep/#{version}/TableauPrep-#{version.dots_to_hyphens}.dmg"
-  appcast 'https://macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://www.tableau.com/downloads/prep/mac',
-          configuration: version.dots_to_hyphens
-  name 'Tableau Prep'
-  homepage 'https://www.tableau.com/support/releases/prep'
+  name "Tableau Prep"
+  name "Tableau Prep Builder"
+  desc "Combine, shape, and clean your data for analysis"
+  homepage "https://www.tableau.com/support/releases/prep"
 
-  depends_on macos: '>= :el_capitan'
+  livecheck do
+    url "https://www.tableau.com/downloads/prep/mac"
+    strategy :header_match do |headers|
+      headers["location"][/-(\d+-\d+-\d+)\.dmg/i, 1].tr("-", ".")
+    end
+  end
 
-  pkg 'Tableau Prep Builder.pkg'
+  depends_on macos: ">= :el_capitan"
+
+  pkg "Tableau Prep Builder.pkg"
 
   uninstall pkgutil: [
-                       'com.amazon.redshiftodbc',
-                       'simba.sparkodbc',
-                       'com.simba.sparkodbc',
-                       'com.simba.sqlserverodbc',
-                       'com.tableausoftware.Maestro.app',
-                       'com.tableausoftware.desktopShortcut',
-                       'com.tableausoftware.telemetry',
-                       'com.tableausoftware.FLEXNet.11.*',
-                       'com.tableausoftware.oracle',
-                       'com.tableausoftware.postgresql',
-                     ]
+    "com.amazon.redshiftodbc",
+    "simba.sparkodbc",
+    "com.simba.sparkodbc",
+    "com.simba.sqlserverodbc",
+    "com.tableausoftware.Maestro.app",
+    "com.tableausoftware.desktopShortcut",
+    "com.tableausoftware.telemetry",
+    "com.tableausoftware.FLEXNet.11.*",
+    "com.tableausoftware.oracle",
+    "com.tableausoftware.postgresql",
+  ]
 end

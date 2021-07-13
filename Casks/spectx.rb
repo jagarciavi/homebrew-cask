@@ -1,11 +1,16 @@
-cask 'spectx' do
-  version '1.4.53'
-  sha256 'fa74d1bfbf4772fe3dc252c3432bf6edcaff6f5a671857f7c107415fa9925e7c'
+cask "spectx" do
+  version "1.4.76"
+  sha256 "562abd4fd438aaaf4d62ec4f36178cdc43847a234ae9dfacf8178dfbcb3a80f5"
 
-  url "https://get.spectx.com/03f21b939e022/SpectXDesktop-v#{version}.dmg"
-  appcast 'https://www.macupdater.net/cgi-bin/check_urls/check_url_redirect.cgi?url=https://go.spectx.com/get/?desktop-osx64'
-  name 'SpectX Desktop'
-  homepage 'https://www.spectx.com/'
+  url "https://download.spectx.com/versions/#{version}/SpectXDesktop-v#{version}.dmg"
+  name "SpectX Desktop"
+  desc "Parse and investigate raw log files"
+  homepage "https://www.spectx.com/"
 
-  app 'SpectXDesktop.app'
+  livecheck do
+    url "https://www.spectx.com/get-spectx"
+    regex(%r{href=.*?/SpectXDesktop[._-]?v?(\d+(?:\.\d+)+)\.dmg}i)
+  end
+
+  app "SpectXDesktop.app"
 end

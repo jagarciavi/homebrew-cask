@@ -1,10 +1,16 @@
-cask 'metashapepro' do
-  version '1.6.2'
-  sha256 'd0313cd8570da9cd331c1f073ec8fe22e57ce8da6257a603274e11b415a2dd22'
+cask "metashapepro" do
+  version "1.7.3"
+  sha256 "4d47852d67dd48a7f5bfd8e29cceb2194b9dbd32e728f5f8f6e8af733d297f90"
 
   url "http://download.agisoft.com/metashape-pro_#{version.dots_to_underscores}.dmg"
-  name 'Agisoft Metashape Professional Edition'
-  homepage 'https://www.agisoft.com/'
+  name "Agisoft Metashape Professional Edition"
+  desc "Process digital images and generate 3D spatial data"
+  homepage "https://www.agisoft.com/"
 
-  app 'MetashapePro.app'
+  livecheck do
+    url "https://www.agisoft.com/downloads/installer/"
+    regex(/Metashape\s*(\d+(?:\.\d+)+)/i)
+  end
+
+  app "MetashapePro.app"
 end

@@ -1,29 +1,36 @@
-cask 'backblaze' do
-  version '7.0.1.434'
-  sha256 '1c1a75b9cab550477e64adfc7e432e97dd3ca62c423aa71710da2288df35d236'
+cask "backblaze" do
+  version "8.0.0.520"
+  sha256 "8afab986245dd61bf25c3984892383b3c47209944bd0a9ce9272979fa3725509"
 
-  url 'https://secure.backblaze.com/mac/install_backblaze.dmg'
-  appcast 'https://secure.backblaze.com/api/clientversion.xml',
-          configuration: "mac_version=\"#{version}\""
-  name 'Backblaze'
-  homepage 'https://backblaze.com/'
+  url "https://secure.backblaze.com/api/install_backblaze?file=bzinstall-mac-#{version}.zip"
+  name "Backblaze"
+  desc "Data backup and storage service"
+  homepage "https://backblaze.com/"
 
-  installer manual: 'Backblaze Installer.app'
+  livecheck do
+    url "https://secure.backblaze.com/api/clientversion.xml"
+    strategy :page_match
+    regex(/mac_version=.*?(\d+(?:\.\d+)*)/i)
+  end
+
+  auto_updates true
+
+  installer manual: "bzdoinstall.app"
 
   uninstall launchctl: [
-                         'com.backblaze.bzserv',
-                         'com.backblaze.bzbmenu',
-                       ],
+    "com.backblaze.bzserv",
+    "com.backblaze.bzbmenu",
+  ],
             delete:    [
-                         "#{appdir}/Backblaze.app",
-                         '/Library/PreferencePanes/BackblazeBackup.prefPane',
-                       ]
+              "#{appdir}/Backblaze.app",
+              "/Library/PreferencePanes/BackblazeBackup.prefPane",
+            ]
 
   zap trash: [
-               '/Library/Backblaze.bzpkg',
-               '~/Library/Preferences/com.backblaze.bzbmenu.plist',
-               '~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.backblaze.*.sfl*',
-               '/Library/Logs/DiagnosticReports/bzbmenu_*.*_resource.diag',
-               '~/Library/Logs/BackblazeGUIInstaller',
-             ]
+    "/Library/Backblaze.bzpkg",
+    "~/Library/Preferences/com.backblaze.bzbmenu.plist",
+    "~/Library/Application Support/com.apple.sharedfilelist/com.apple.LSSharedFileList.ApplicationRecentDocuments/com.backblaze.*.sfl*",
+    "/Library/Logs/DiagnosticReports/bzbmenu_*.*_resource.diag",
+    "~/Library/Logs/BackblazeGUIInstaller",
+  ]
 end

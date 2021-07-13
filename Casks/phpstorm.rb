@@ -1,25 +1,48 @@
-cask 'phpstorm' do
-  version '2020.1.1,201.7223.96'
-  sha256 'f231c6feb75a7a2d4d52cd7cb58266807034898ce45737e403f802df45a660a7'
+cask "phpstorm" do
+  version "2021.1.4,211.7628.25"
 
-  url "https://download.jetbrains.com/webide/PhpStorm-#{version.before_comma}.dmg"
-  appcast 'https://data.services.jetbrains.com/products/releases?code=PS&latest=true&type=release'
-  name 'JetBrains PhpStorm'
-  homepage 'https://www.jetbrains.com/phpstorm/'
+  if Hardware::CPU.intel?
+    sha256 "3d19209814b08db70c5add5b14501ffd4ab6ff9c6696e672e757be6b7ea08329"
+
+    url "https://download.jetbrains.com/webide/PhpStorm-#{version.before_comma}.dmg"
+  else
+    sha256 "c9df401adaa3991cef6297f979e700ffddfdaa231943b84f7e1deef44bd2c9d3"
+
+    url "https://download.jetbrains.com/webide/PhpStorm-#{version.before_comma}-aarch64.dmg"
+  end
+
+  name "JetBrains PhpStorm"
+  desc "PHP IDE by JetBrains"
+  homepage "https://www.jetbrains.com/phpstorm/"
+
+  livecheck do
+    url "https://data.services.jetbrains.com/products/releases?code=PS&latest=true&type=release"
+    strategy :page_match do |page|
+      JSON.parse(page)["PS"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
+    end
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  app 'PhpStorm.app'
+  app "PhpStorm.app"
 
   uninstall_postflight do
-    ENV['PATH'].split(File::PATH_SEPARATOR).map { |path| File.join(path, 'pstorm') }.each { |path| File.delete(path) if File.exist?(path) && File.readlines(path).grep(%r{# see com.intellij.idea.SocketLock for the server side of this interface}).any? }
+    ENV["PATH"].split(File::PATH_SEPARATOR).map { |path| File.join(path, "pstorm") }.each do |path|
+      if File.exist?(path) &&
+         File.readlines(path).grep(/# see com.intellij.idea.SocketLock for the server side of this interface/).any?
+        File.delete(path)
+      end
+    end
   end
 
   zap trash: [
-               "~/Library/Application Support/PhpStorm#{version.major_minor}",
-               "~/Library/Caches/PhpStorm#{version.major_minor}",
-               "~/Library/Logs/PhpStorm#{version.major_minor}",
-               "~/Library/Preferences/PhpStorm#{version.major_minor}",
-               '~/Library/Preferences/jetbrains.phpstorm.*.plist',
-             ]
+    "~/Library/Application Support/PhpStorm#{version.major_minor}",
+    "~/Library/Caches/PhpStorm#{version.major_minor}",
+    "~/Library/Logs/PhpStorm#{version.major_minor}",
+    "~/Library/Preferences/PhpStorm#{version.major_minor}",
+    "~/Library/Preferences/jetbrains.phpstorm.*.plist",
+  ]
 end

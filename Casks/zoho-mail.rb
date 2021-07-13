@@ -1,12 +1,17 @@
-cask 'zoho-mail' do
-  version '1.1.10'
-  sha256 'cfed176a979dbfa9ec75a8043031f97b07407ff4e2966ddbdb6594db5925f1f6'
+cask "zoho-mail" do
+  version "1.3.1"
+  sha256 "f8099f704317173c46083e946e7cb03143aa854b288832d9a0bbb5a31edf4aff"
 
-  # downloads.zohocdn.com/zmail-desktop/mac/ was verified as official when first introduced to the cask
-  url "https://downloads.zohocdn.com/zmail-desktop/mac/zoho-mail-desktop-installer-v#{version}.dmg"
-  appcast 'https://downloads.zohocdn.com/zmail-desktop/artifacts.json'
-  name 'Zoho Mail'
-  homepage 'https://www.zoho.com/mail/desktop/'
+  url "https://downloads.zohocdn.com/zmail-desktop/mac/zoho-mail-desktop-installer-v#{version}.dmg",
+      verified: "downloads.zohocdn.com/zmail-desktop/mac/"
+  name "Zoho Mail"
+  desc "Email client"
+  homepage "https://www.zoho.com/mail/desktop/"
 
-  app 'Zoho Mail - Desktop.app'
+  livecheck do
+    url "https://downloads.zohocdn.com/zmail-desktop/artifacts.json"
+    regex(/zoho[._-]mail[._-]desktop[._-]installer[._-]v?(\d+(?:\.\d+)+)\.dmg/i)
+  end
+
+  app "Zoho Mail - Desktop.app"
 end

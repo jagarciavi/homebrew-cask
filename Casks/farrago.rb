@@ -1,13 +1,19 @@
-cask 'farrago' do
-  version '1.5.0'
-  sha256 'f7e6320583e697e1c561c5880658409cbc1e87a24d0e775c0fa180902301ce5d'
+cask "farrago" do
+  version "1.6.3"
+  sha256 :no_check
 
-  url 'https://rogueamoeba.com/farrago/download/Farrago.zip'
-  appcast 'https://rogueamoeba.net/ping/versionCheck.cgi?format=sparkle&bundleid=com.rogueamoeba.farrago&system=10140'
-  name 'Farrago'
-  homepage 'https://rogueamoeba.com/farrago/'
+  url "https://rogueamoeba.com/farrago/download/Farrago.zip"
+  name "Farrago"
+  desc "Audio playback"
+  homepage "https://rogueamoeba.com/farrago/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://rogueamoeba.com/farrago/releasenotes.php"
+    regex(/ra-version=["']?(\d+(?:\.\d+)+)["' >]/i)
+  end
 
-  app 'Farrago.app'
+  auto_updates true
+  depends_on macos: ">= :high_sierra"
+
+  app "Farrago.app"
 end

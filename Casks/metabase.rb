@@ -1,12 +1,17 @@
-cask 'metabase' do
-  version '0.35.3'
-  sha256 'd38cc9a081c2eb23edeb175c45398059cf670418163b77e7f348e34d3460ec8e'
+cask "metabase" do
+  version "0.39.4"
+  sha256 "ac6a066db6fd571d9b13bd398ed7336a72f7e166fd347e4ec4e6b55c5bed4385"
 
-  # s3.amazonaws.com/downloads.metabase.com/ was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/downloads.metabase.com/v#{version}/Metabase.zip"
-  appcast 'https://s3.amazonaws.com/downloads.metabase.com/appcast.xml'
-  name 'Metabase'
-  homepage 'https://www.metabase.com/'
+  url "https://s3.amazonaws.com/downloads.metabase.com/v#{version}/Metabase.zip",
+      verified: "s3.amazonaws.com/downloads.metabase.com/"
+  name "Metabase"
+  desc "Business intelligence and analytics"
+  homepage "https://www.metabase.com/"
 
-  app 'Metabase.app'
+  livecheck do
+    url "https://s3.amazonaws.com/downloads.metabase.com/appcast.xml"
+    strategy :sparkle
+  end
+
+  app "Metabase.app"
 end

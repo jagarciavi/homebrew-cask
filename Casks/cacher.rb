@@ -1,12 +1,17 @@
-cask 'cacher' do
-  version '2.28.0'
-  sha256 '0619f57b486abb55c0591fc2d26cd8dc55235948985c437d11be6457f97cd49e'
+cask "cacher" do
+  version "2.42.1"
+  sha256 "fb09d822305687fb06fc87ac5f1f20b7b120b4460fe18c1428736a3fdd6dac74"
 
-  # cacher-download.nyc3.digitaloceanspaces.com/ was verified as official when first introduced to the cask
-  url "https://cacher-download.nyc3.digitaloceanspaces.com/Cacher-#{version}-mac.zip"
-  appcast 'https://cacher-download.nyc3.digitaloceanspaces.com/latest-mac.yml'
-  name 'Cacher'
-  homepage 'https://www.cacher.io/'
+  url "https://cacher-download.nyc3.digitaloceanspaces.com/Cacher-#{version}-mac.zip",
+      verified: "cacher-download.nyc3.digitaloceanspaces.com/"
+  name "Cacher"
+  desc "Code snippet organizer"
+  homepage "https://www.cacher.io/"
 
-  app 'Cacher.app'
+  livecheck do
+    url "https://cacher-download.nyc3.digitaloceanspaces.com/latest-mac.yml"
+    strategy :electron_builder
+  end
+
+  app "Cacher.app"
 end

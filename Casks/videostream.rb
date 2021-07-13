@@ -1,18 +1,19 @@
-cask 'videostream' do
-  version '0.4.0'
-  sha256 'ac74c9b20fa53ce49ba5b2e36f55456363107d02c58fcb4579d10f8441954771'
+cask "videostream" do
+  version "0.4.3"
+  sha256 :no_check
 
-  url 'https://cdn.getvideostream.com/videostream-native-updates/macOS/Videostream.pkg'
-  appcast 'https://videostream-cdn.s3.amazonaws.com/videostream-native-updates/macOS/manifest.json'
-  name 'Videostream'
-  homepage 'https://getvideostream.com/'
+  url "https://cdn.getvideostream.com/videostream-native-updates/macOS/Videostream.pkg"
+  appcast "https://videostream-cdn.s3.amazonaws.com/videostream-native-updates/macOS/manifest.json"
+  name "Videostream"
+  desc "Stream media from your computer to Chromecast"
+  homepage "https://getvideostream.com/"
 
-  pkg 'Videostream.pkg'
+  pkg "Videostream.pkg"
 
   uninstall launchctl: [
-                         'com.videostream.launcher',
-                         "com.videostream.updater.#{version}",
-                       ],
-            pkgutil:   'com.videostream',
-            signal:    ['TERM', 'com.videostream']
+    "com.videostream.launcher",
+    "com.videostream.updater.#{version}",
+  ],
+            pkgutil:   "com.videostream",
+            signal:    ["TERM", "com.videostream"]
 end

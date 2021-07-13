@@ -1,11 +1,14 @@
-cask 'spatterlight' do
-  version '0.5.0'
-  sha256 '1729c51676f791149f4829454318f373eff43bf8d8388ecbe3b345308c669ba1'
+cask "spatterlight" do
+  version "0.8.2"
+  sha256 "f9f063745a7f48d6b2be319586ac2babd9e1d95e16a150abe52e9b179fda192c"
 
-  url "http://ccxvii.net/spatterlight/download/spatterlight-#{version}.zip"
-  appcast 'http://ccxvii.net/spatterlight/'
-  name 'Spatterlight'
-  homepage 'http://ccxvii.net/spatterlight/'
+  url "https://github.com/angstsmurf/spatterlight/releases/download/v#{version}/Spatterlight.zip",
+      verified: "github.com/angstsmurf/spatterlight/"
+  name "Spatterlight"
+  desc "Play most kinds of interactive fiction game files"
+  homepage "http://ccxvii.net/spatterlight/"
 
-  app 'Spatterlight.app'
+  depends_on macos: ">= :catalina"
+
+  app "Spatterlight.app"
 end

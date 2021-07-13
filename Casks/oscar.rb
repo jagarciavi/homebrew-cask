@@ -1,12 +1,17 @@
-cask 'oscar' do
-  version '1.1.0'
-  sha256 '1aa66aba091dd92760ef0e747514fdd35099d71e38e322da132122ebfeb9aa6e'
+cask "oscar" do
+  version "1.2.0"
+  sha256 "adaa1c9412c3e3d37fe275d1e1670b38fa1cdfdf58bd829a9db03cbd8f66a179"
 
-  # apneaboard.com/OSCAR/ was verified as official when first introduced to the cask
-  url "https://www.apneaboard.com/OSCAR/OSCAR-#{version}.dmg"
-  appcast 'https://www.sleepfiles.com/OSCAR/'
-  name 'OSCAR'
-  homepage 'https://www.sleepfiles.com/OSCAR/'
+  url "https://www.apneaboard.com/OSCAR/OSCAR-#{version}.dmg",
+      verified: "apneaboard.com/OSCAR/"
+  name "OSCAR"
+  homepage "https://www.sleepfiles.com/OSCAR/"
 
-  app 'OSCAR.app'
+  livecheck do
+    url "https://www.sleepfiles.com/OSCAR/"
+    strategy :page_match
+    regex(%r{href=.*?/OSCAR-(\d+(?:\.\d+)*)\.dmg}i)
+  end
+
+  app "OSCAR.app"
 end

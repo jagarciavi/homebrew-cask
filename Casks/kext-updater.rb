@@ -1,18 +1,23 @@
-cask 'kext-updater' do
-  version '3.4.8'
-  sha256 'aee1f48c4955016d4041c7dcc4d1f72f6cd1e021229345da198807159e13ea32'
+cask "kext-updater" do
+  version "3.9.3,393"
+  sha256 :no_check
 
-  url 'https://update.kextupdater.de/kextupdater/kextupdaterng.zip'
-  appcast 'https://update.kextupdater.de/kextupdater/appcastng.xml'
-  name 'Kext Updater'
-  homepage 'https://kextupdater.de/'
+  url "https://update.kextupdater.de/kextupdater/kextupdaterng.zip"
+  name "Kext Updater"
+  desc "Automatic updater for kernel extensions required by 'Hackintoshes'"
+  homepage "https://kextupdater.de/"
 
-  app 'Kext Updater.app'
+  livecheck do
+    url "https://update.kextupdater.de/kextupdater/appcastng.xml"
+    strategy :sparkle
+  end
+
+  app "Kext Updater.app"
 
   zap trash: [
-               '~/Library/Caches/kextupdater.slsoft.de',
-               '~/Library/Preferences/kextupdater.slsoft.de.plist',
-               '~/Library/Preferences/kextupdaterhelper.slsoft.de.plist',
-               '~/Library/Saved Application State/kextupdater.slsoft.de.savedState',
-             ]
+    "~/Library/Caches/kextupdater.slsoft.de",
+    "~/Library/Preferences/kextupdater.slsoft.de.plist",
+    "~/Library/Preferences/kextupdaterhelper.slsoft.de.plist",
+    "~/Library/Saved Application State/kextupdater.slsoft.de.savedState",
+  ]
 end

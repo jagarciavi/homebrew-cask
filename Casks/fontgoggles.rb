@@ -1,12 +1,12 @@
-cask 'fontgoggles' do
-  version '1.1.15'
-  sha256 '1f55131fe2fbecd38f4e152eef26136cbb5e17e9ec67a353e7c8dacb94001cb1'
+cask "fontgoggles" do
+  version "1.3.1"
+  sha256 "7728785add360252b28b8bfa8c1e6a246abb54b514ebcaf20628841d91780d38"
 
-  # github.com/justvanrossum/fontgoggles/ was verified as official when first introduced to the cask
-  url "https://github.com/justvanrossum/fontgoggles/releases/download/v#{version}/FontGoggles.dmg"
-  appcast 'https://github.com/justvanrossum/fontgoggles/releases.atom'
-  name 'FontGoggles'
-  homepage 'https://fontgoggles.org/'
+  url "https://github.com/justvanrossum/fontgoggles/releases/download/v#{version}/FontGoggles.dmg",
+      verified: "github.com/justvanrossum/fontgoggles/"
+  name "FontGoggles"
+  desc "Font viewer for various font formats"
+  homepage "https://fontgoggles.org/"
 
-  app 'FontGoggles.app'
+  app "FontGoggles.app"
 end

@@ -1,14 +1,26 @@
-cask 'amadine' do
-  version '1.0.8'
-  sha256 'cb02e58a577eca830ccbf22076bb93921d59532e54f6bba40343fefb536531be'
+cask "amadine" do
+  version "1.2.2,118"
+  sha256 :no_check
 
-  # belightsoft.s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url 'https://belightsoft.s3.amazonaws.com/Amadine.dmg'
-  appcast 'https://www.belightsoft.com/download/updates/appcast_Amadine.xml'
-  name 'Amadine'
-  homepage 'https://amadine.com/'
+  url "https://belightsoft.s3.amazonaws.com/Amadine.dmg",
+      verified: "belightsoft.s3.amazonaws.com/"
+  name "Amadine"
+  desc "Vector graphic and illustration software"
+  homepage "https://amadine.com/"
 
-  depends_on macos: '>= :sierra'
+  livecheck do
+    url "https://www.belightsoft.com/download/updates/appcast_Amadine.xml"
+    strategy :sparkle
+  end
 
-  app 'Amadine.app'
+  depends_on macos: ">= :sierra"
+
+  app "Amadine.app"
+
+  zap trash: [
+    "~/Library/Application Support/Amadine",
+    "~/Library/Caches/com.belightsoft.Amadine",
+    "~/Library/Preferences/com.belightsoft.Amadine.plist",
+    "~/Library/Saved Application State/com.belightsoft.Amadine.savedState",
+  ]
 end

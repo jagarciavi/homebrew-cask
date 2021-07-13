@@ -1,16 +1,24 @@
-cask 'second-life-viewer' do
-  version '6.4.2.541639'
-  sha256 'e8d8e3b5c11cd071f0026c7277a261008ce15b1a177efa9bd46728074fbc4680'
+cask "second-life-viewer" do
+  version "6.4.19.560171"
+  sha256 "dca90cf9782db8a1f8644f65fc9725b4cfee418d13c12d6a6fc3a7ab4070ec2d"
 
   url "http://download.cloud.secondlife.com/Viewer_#{version.major}/Second_Life_#{version.dots_to_underscores}_x86_64.dmg"
-  appcast 'https://secondlife.com/support/downloads/'
-  name 'Linden Lab Second Life Viewer'
-  homepage 'https://secondlife.com/'
+  name "Linden Lab Second Life Viewer"
+  desc "3D browsing software for Second Life online virtual world"
+  homepage "https://secondlife.com/"
 
-  app 'Second Life Viewer.app'
+  livecheck do
+    url "https://secondlife.com/support/downloads/"
+    strategy :page_match do |page|
+      v = page[%r{href=.*?/Second_Life_(\d+(?:_\d+)*)_x86_64\.dmg}i, 1]
+      v.tr("_", ".")
+    end
+  end
+
+  app "Second Life Viewer.app"
 
   zap trash: [
-               '~/Library/Application Support/SecondLife',
-               '~/Library/Caches/SecondLife',
-             ]
+    "~/Library/Application Support/SecondLife",
+    "~/Library/Caches/SecondLife",
+  ]
 end

@@ -1,11 +1,11 @@
-cask 'lifesize' do
-  version '2.210.2665'
-  sha256 '685b7f4ddfa2799824123fe19a9f4a8c8339a79e2d4b32cf1f6768019709be7b'
+cask "lifesize" do
+  version "2.216.2840"
+  sha256 "75427ddb8e8238d8f93634a0b345cdc90c11c2669fde22c5e66f22c3f2eead65"
 
-  # download.lifesizecloud.com/ was verified as official when first introduced to the cask
-  url "https://download.lifesizecloud.com/Lifesize-#{version}.dmg"
-  name 'lifesize'
-  homepage 'https://www.lifesize.com/'
+  url "https://download.lifesizecloud.com/Lifesize-#{version}.dmg",
+      verified: "download.lifesizecloud.com/"
+  name "lifesize"
+  homepage "https://www.lifesize.com/"
 
-  app 'Lifesize.app'
+  app "Lifesize.app"
 end

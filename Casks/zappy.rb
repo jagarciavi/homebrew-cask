@@ -1,22 +1,28 @@
-cask 'zappy' do
-  version '2.4.0'
-  sha256 '41ceeb3bb893585b4e75021ad774640af8618565079c333acb392c520d18865c'
+cask "zappy" do
+  version "2.10.0"
+  sha256 "5a07c373fa0dd14dd64263882f316d28821f70e4d5873733ef5da257016d6a57"
 
-  url "https://zappy.zapier.com/releases/zappy-#{version}.zip"
-  appcast 'https://zappy.zapier.com/releases/appcast.xml'
-  name 'Zappy'
-  homepage 'https://zapier.com/zappy'
+  url "https://zappy.zapier.com/releases/zappy-#{version}.dmg"
+  name "Zappy"
+  desc "Screen capture tool for remote teams"
+  homepage "https://zapier.com/zappy"
+
+  livecheck do
+    url "https://zappy.zapier.com/releases/appcast.xml"
+    strategy :sparkle
+  end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
-  app 'Zappy.app'
+  app "Zappy.app"
 
-  uninstall quit: 'com.blackbeltlabs.Zappy'
+  uninstall quit: "com.blackbeltlabs.Zappy"
 
   zap trash: [
-               '~/Library/Application Support/com.blackbeltlabs.Zappy',
-               '~/Library/Caches/com.blackbeltlabs.Zappy',
-               '~/Library/Preferences/com.blackbeltlabs.Zappy.plist',
-               '~/Library/zappy',
-             ]
+    "~/Library/Application Support/com.blackbeltlabs.Zappy",
+    "~/Library/Caches/com.blackbeltlabs.Zappy",
+    "~/Library/Preferences/com.blackbeltlabs.Zappy.plist",
+    "~/Library/zappy",
+  ]
 end

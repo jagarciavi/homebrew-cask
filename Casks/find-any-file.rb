@@ -1,14 +1,21 @@
-cask 'find-any-file' do
-  version '2.1.1'
-  sha256 '5e444bcb16f89bbb44ded8da6f84d494d081ef07d8949ac2287ac80d1cc2a585'
+cask "find-any-file" do
+  version "2.3"
+  sha256 "7c8642093e055285c0f9588de004dee9ee0a4e195ae4ef7da8ae52a86724fb32"
 
-  # s3.amazonaws.com/ was verified as official when first introduced to the cask
-  url "https://s3.amazonaws.com/files.tempel.org/FindAnyFile_#{version}.zip"
-  appcast 'https://findanyfile.app/appcast2.php'
-  name 'Find Any File'
-  homepage 'https://apps.tempel.org/FindAnyFile/'
+  url "https://s3.amazonaws.com/files.tempel.org/FindAnyFile_#{version}.zip",
+      verified: "s3.amazonaws.com/"
+  name "Find Any File"
+  desc "File finder"
+  homepage "https://apps.tempel.org/FindAnyFile/"
 
-  app 'Find Any File.app'
+  livecheck do
+    url "https://findanyfile.app/appcast#{version.major}.php"
+    strategy :sparkle, &:short_version
+  end
 
-  zap trash: '~/Library/Application Support/Find Any File'
+  depends_on macos: ">= :el_capitan"
+
+  app "Find Any File.app"
+
+  zap trash: "~/Library/Application Support/Find Any File"
 end

@@ -1,26 +1,32 @@
-cask 'telegram' do
-  version '6.1.4.200256'
-  sha256 '2c59d5f1eca56e75903b6a5d933fcdaf1b4093c1412680888a5a0f96520389e6'
+cask "telegram" do
+  version "7.8.218215"
+  sha256 "bf6755d941a78f36ba7bdc0d2d2d8fa44818c49d86078f6209a50fc2cd4d5be1"
 
   url "https://osx.telegram.org/updates/Telegram-#{version}.app.zip"
-  appcast 'https://osx.telegram.org/updates/versions.xml'
-  name 'Telegram for macOS'
-  homepage 'https://macos.telegram.org/'
+  name "Telegram for macOS"
+  desc "Messaging app with a focus on speed and security"
+  homepage "https://macos.telegram.org/"
+
+  livecheck do
+    url "https://osx.telegram.org/updates/versions.xml"
+    strategy :page_match
+    regex(/Telegram-(\d+(?:\.\d+)*)\.app\.zip/i)
+  end
 
   auto_updates true
-  depends_on macos: '>= :el_capitan'
+  depends_on macos: ">= :el_capitan"
 
-  app 'Telegram.app'
+  app "Telegram.app"
 
   zap trash: [
-               '~/Library/Application Scripts/ru.keepcoder.Telegram',
-               '~/Library/Application Scripts/ru.keepcoder.Telegram.TelegramShare',
-               '~/Library/Caches/ru.keepcoder.Telegram',
-               '~/Library/Containers/ru.keepcoder.Telegram',
-               '~/Library/Containers/ru.keepcoder.Telegram.TelegramShare',
-               '~/Library/Cookies/ru.keepcoder.Telegram.binarycookies',
-               '~/Library/Group Containers/*.ru.keepcoder.Telegram',
-               '~/Library/Preferences/ru.keepcoder.Telegram.plist',
-               '~/Library/Saved Application State/ru.keepcoder.Telegram.savedState',
-             ]
+    "~/Library/Application Scripts/ru.keepcoder.Telegram",
+    "~/Library/Application Scripts/ru.keepcoder.Telegram.TelegramShare",
+    "~/Library/Caches/ru.keepcoder.Telegram",
+    "~/Library/Containers/ru.keepcoder.Telegram",
+    "~/Library/Containers/ru.keepcoder.Telegram.TelegramShare",
+    "~/Library/Cookies/ru.keepcoder.Telegram.binarycookies",
+    "~/Library/Group Containers/*.ru.keepcoder.Telegram",
+    "~/Library/Preferences/ru.keepcoder.Telegram.plist",
+    "~/Library/Saved Application State/ru.keepcoder.Telegram.savedState",
+  ]
 end
